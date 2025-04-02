@@ -97,7 +97,7 @@
     }
 
     button:hover {
-      background: #2980b9;
+      background: #560b09;
       transform: translateY(-1px);
       box-shadow: 0 4px 12px rgba(52, 152, 219, 0.2);
     }
@@ -245,33 +245,7 @@
       }
     });
 
-    // GitHub Submission Function
-    async function saveToGitHub(formData) {
-      // ⚠️ REPLACE THESE VALUES ⚠️
-      const GITHUB_USERNAME = "ElliotBrew";  // e.g., "ElliotBrew"
-      const REPO_NAME = "aamusted-responses";             // e.g., "aamusted-responses"
-      try {
-        const response = await fetch(
-          `https://api.github.com/repos/${GITHUB_USERNAME}/${REPO_NAME}/contents/submissions/${Date.now()}_${formData.indexNumber}.json`,
-          {
-            method: "PUT",
-            headers: {
-              "Authorization": `token ${GITHUB_TOKEN}`,
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-              message: "New counselling submission",
-              content: btoa(JSON.stringify(formData)) // Base64 encode
-            })
-          }
-        );
-        console.log("Saved to GitHub:", await response.json());
-      } catch (error) {
-        console.error("Error saving to GitHub:", error);
-      }
-    }
-
-    // Form submission
+    // Form submission handler
     document.getElementById('counsellingForm').addEventListener('submit', async (e) => {
       e.preventDefault();
       
@@ -281,13 +255,31 @@
         phone: e.target.phone.value,
         level: e.target.level.value,
         faculty: e.target.faculty.value,
-        programme: e.target.programme.value,
-        timestamp: new Date().toISOString()
+        programme: e.target.programme.value
       };
 
-      await saveToGitHub(formData); // Call the GitHub function
-      alert("Submitted successfully!");
-      e.target.reset();
+      try {
+        // Replace with your ACTUAL Google Apps Script URL
+        const response = await fetch("https://script.google.com/macros/s/AKfycbxfCgFIF1dZmWJDpNOG7yVd2xBG1yadI8hfB4-2AIomctga5ZspXYFQfKWGynUzx6YB/exec", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(formData)
+        });
+
+        const result = await response.json();
+        
+        if (result.status === "success") {
+          alert("Submitted successfully!");
+          e.target.reset();
+        } else {
+          throw new Error(result.message || "Submission failed");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        alert("Submission failed. Please try again later.");
+      }
     });
   </script>
 </body>
