@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AAMUSTED Faculty Counselling</title>
+  <style>
+    :root {
+      --primary-color: #2c3e50;
+      --secondary-color: #3498db;
+      --accent-color: #e74c3c;
+      --background-color: #f5f6fa;
+      --text-color: #2c3e50;
+      --border-color: #dcdde1;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--background-color);
+      color: var(--text-color);
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      color: var(--primary-color);
+      text-align: center;
+      margin-bottom: 2rem;
+      font-size: 2.2rem;
+      position: relative;
+      padding-bottom: 1rem;
+    }
+
+    h1::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 3px;
+      background: var(--secondary-color);
+      border-radius: 2px;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+      color: var(--primary-color);
+    }
+
+    select, input {
+      width: 100%;
+      padding: 0.8rem;
+      border: 2px solid var(--border-color);
+      border-radius: 6px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    select:focus, input:focus {
+      outline: none;
+      border-color: var(--secondary-color);
+      box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+    }
+
+    button {
+      background: var(--secondary-color);
+      color: white;
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 600;
+      width: 100%;
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      background: #2980b9;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(52, 152, 219, 0.2);
+    }
+
+    button:active {
+      transform: translateY(0);
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        margin: 1rem;
+        padding: 1rem;
+      }
+
+      h1 {
+        font-size: 1.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>AAMUSTED Faculty Counselling Form</h1>
+    <form id="counsellingForm">
+      <!-- Personal Information -->
+      <div class="form-group">
+        <label>Full Name</label>
+        <input type="text" name="fullName" required title="Enter your full name">
+      </div>
+      
+      <div class="form-group">
+        <label>Index Number</label>
+        <input type="text" name="indexNumber" required title="Enter your index number">
+      </div>
+      
+      <div class="form-group">
+        <label>Phone Number (233XXXXXXXXX)</label>
+        <input type="tel" name="phone" pattern="233\d{9}" required title="Enter a valid Ghanaian phone number">
+      </div>
+      
+      <div class="form-group">
+        <label>Level/Year of Study</label>
+        <select name="level" id="level" title="Select your level" required>
+          <option value="">Select...</option>
+          <option>100</option>
+          <option>200</option>
+          <option>300</option>
+          <option>400</option>
+        </select>
+      </div>
+      
+      <!-- Faculty Selection -->
+      <div class="form-group">
+        <label>Faculty</label>
+        <select name="faculty" id="faculty" title="Select your faculty" required>
+          <option value="">Select Faculty...</option>
+          <option>Faculty of Applied Sciences and Mathematics Education</option>
+          <option>Faculty of Education and Communication Sciences</option>
+          <option>Faculty of Technical Education</option>
+          <option>Faculty of Vocational Education</option>
+          <option>Faculty of Business Education</option>
+          <option>Institute of Entrepreneurial Development Education and Innovation</option>
+        </select>
+      </div>
+      
+      <!-- Programme Selection -->
+      <div class="form-group">
+        <label for="programme">Programme</label>
+        <select name="programme" id="programme" title="Select your programme" required>
+          <option value="">Select Faculty first</option>
+        </select>
+      </div>
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+  <script>
+    // Programme options mapping
+    const programmes = {
+      "Faculty of Applied Sciences and Mathematics Education": [
+        "B.Sc. Mathematics Education",
+        "B.Sc. Information Technology Education",
+        "B.Sc. Information Science Education",
+        "B.Sc. Cyber Security and Digital Forensics"
+      ],
+      "Faculty of Education and Communication Sciences": [
+        "B.A. Social Studies with Economics Education",
+        "B.A. French Education",
+        "B.A. English Education",
+        "B.A. Arabic Education",
+        "B.Ed. Early Grade",
+        "B.Ed. Junior High",
+        "B.Ed. Upper Primary"
+      ],
+      "Faculty of Technical Education": [
+        "B.Sc. Mechanical Engineering Technology",
+        "B.Sc. Automotive Engineering Technology with Education",
+        "B.Sc. Electrical and Electronics Engineering with Education",
+        "B.Sc. Electrical and Electronics Engineering",
+        "B.Sc. Welding and Fabrication Engineering Technology with Education",
+        "B.Sc. Plumbing, Gas and Sanitary Technology",
+        "B.Sc. Civil Engineering",
+        "B.Sc. Construction Technology and Management with Education",
+        "B.Sc. Wood Technology Education"
+      ],
+      "Faculty of Vocational Education": [
+        "B.Sc. Fashion Design and Textiles Education",
+        "B.Sc. Catering and Hospitality Education"
+      ],
+      "Faculty of Business Education": [
+        "B.Sc. Accounting Education",
+        "B.Sc. Economics Education",
+        "B.Sc. Administration - Accounting",
+        "B.Sc. Administration - Procurement and Supply Chain Management",
+        "B.Sc. Administration - Banking and Finance",
+        "B.Sc. Administration - Business Information Systems",
+        "B.Sc. Administration - Computerised Accounting",
+        "B.Sc. Economics with Social Studies Education",
+        "B.Sc. Management Education",
+        "B.B.A. Management",
+        "B.B.A. Human Resource Management",
+        "B.Sc. Marketing and Entrepreneurship",
+        "B.B.A. Executive Office Administration"
+      ],
+      "Institute of Entrepreneurial Development Education and Innovation": [
+        "B.Sc. Marketing and Entrepreneurship",
+        "B.Sc. Entrepreneurship Education"
+      ]
+    };
+
+    // Update programme options when faculty changes
+    document.getElementById('faculty').addEventListener('change', function() {
+      const faculty = this.value;
+      const programmeSelect = document.getElementById('programme');
+      
+      programmeSelect.innerHTML = '<option value="">Select Programme...</option>';
+      
+      if (faculty && programmes[faculty]) {
+        programmes[faculty].forEach(programme => {
+          const option = document.createElement('option');
+          option.value = programme;
+          option.textContent = programme;
+          programmeSelect.appendChild(option);
+        });
+      }
+    });
+
+    // GitHub Submission Function
+    async function saveToGitHub(formData) {
+      // ⚠️ REPLACE THESE VALUES ⚠️
+      const GITHUB_USERNAME = "ElliotBrew";  // e.g., "ElliotBrew"
+      const REPO_NAME = "aamusted-responses";             // e.g., "aamusted-responses"
+      try {
+        const response = await fetch(
+          `https://api.github.com/repos/${GITHUB_USERNAME}/${REPO_NAME}/contents/submissions/${Date.now()}_${formData.indexNumber}.json`,
+          {
+            method: "PUT",
+            headers: {
+              "Authorization": `token ${GITHUB_TOKEN}`,
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              message: "New counselling submission",
+              content: btoa(JSON.stringify(formData)) // Base64 encode
+            })
+          }
+        );
+        console.log("Saved to GitHub:", await response.json());
+      } catch (error) {
+        console.error("Error saving to GitHub:", error);
+      }
+    }
+
+    // Form submission
+    document.getElementById('counsellingForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const formData = {
+        fullName: e.target.fullName.value,
+        indexNumber: e.target.indexNumber.value,
+        phone: e.target.phone.value,
+        level: e.target.level.value,
+        faculty: e.target.faculty.value,
+        programme: e.target.programme.value,
+        timestamp: new Date().toISOString()
+      };
+
+      await saveToGitHub(formData); // Call the GitHub function
+      alert("Submitted successfully!");
+      e.target.reset();
+    });
+  </script>
+</body>
+</html>
